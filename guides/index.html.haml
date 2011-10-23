@@ -9,7 +9,7 @@ title: Guides
     %dl
       - for guide in site.guides.select{|x| x.group == index + 1}.sort{|a, b| a.order <=> b.order}
         %dt<
-          %a{:href=>guide.output_path}= guide.title
+          %a{:href=>guide.output_path, :id=>"main_#{guide.guide_id}"}= guide.title
         %dd= guide.summary
   %h3.group Reference
   %dl

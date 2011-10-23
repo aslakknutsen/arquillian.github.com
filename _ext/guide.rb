@@ -1,8 +1,12 @@
+require 'digest'
+
 module Awestruct
   module Extensions
     module Guide
 
       class Index
+        include Guide
+
         def initialize(path_prefix)
           @path_prefix = path_prefix
         end
@@ -19,12 +23,20 @@ module Awestruct
               
               guide = OpenStruct.new
               guide.title = page.title
+              guide.guide_id = Digest::SHA256.hexdigest(guide.title)[0..6]
               guide.output_path = page.output_path
               guide.summary = page.guide_summary
-              guide.group = page.guide_group
+              guide.group = if page.guide_group then page.guide_group else 0 end
               guide.order = if page.guide_order then page.guide_order else 100 end
+              guide.link = page.output_path
               
+              page.last_updated = page_updated(page)
+              guide.updated = page.last_updated
+
               page_content = Hpricot(page.content)
+
+              guide.bars = page_content.search('strong[@class*=greenbar]').length
+
               chapters = []
 
               page_content.search('h3').each do |header_html|
@@ -112,6 +124,36 @@ module Awestruct
         end
         
       end
+
+      def init_guide_game(guides)
+
+        html = ''
+        html += '$.game_init(['
+
+        guides.each_with_index { |guide, index|
+          html += '{'
+          html += "id: '#{guide.guide_id}', bars: #{guide.bars},"
+          html += "level: #{guide.group}, updated: '#{guide.updated.strftime("%d-%m-%y")}',"
+          html += "title: '#{guide.title}', link: '#{guide.link}'"
+          html += '}'
+          html += ',' unless index == guides.length-1
+        }
+        html += ']);'
+        return html
+      end
+
+      ##
+      # Returns the last commit date as "dd-mm-yy"
+      #
+      def page_updated(page)
+        last_updated = nil
+        g = Git.open(page.site.dir)
+        g.log(1).object(page.relative_source_path[1..-1]).each{ |x|
+          last_updated = x.date
+        }
+        return last_updated
+      end
+
     end
   end
 end

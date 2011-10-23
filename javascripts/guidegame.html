@@ -1,0 +1,183 @@
+<html>
+  <head>
+    <script type="text/javascript" src="localstoragedb.js"></script>
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="jquery-scroll.js"></script>
+    <script type="text/javascript" src="jquery_guidegame.js"></script>
+
+    <style>
+      .greenbar {
+        color: white;
+        padding: 1px 3px;
+        background-color:#5FBF5F;
+        border-width: 1px 0;
+      }
+
+      .greenbar_reward {
+        background-color: #eee;
+        width: 250;
+        height: 100;
+        display: none;
+        position: absolute;
+        border: 1px solid #000;
+      }
+
+      .greenbar_completed {
+        background-color: #eee;
+        width: 400;
+        height: 150;
+        display: none;
+        position: absolute;
+        border: 1px solid #000;
+      }
+
+    </style>
+
+    <script type="text/javascript">
+      new localStorageDB('guide_game').drop();
+
+      function mark_index() {
+        $('#' + this.id).css('background-color', '#eee')
+      }
+      function mark_main() {
+        $('#main_' + this.id).css('text-decoration', 'line-through')
+      }
+
+      function slide_in_ike_complete(guide, guides) {
+        var docViewTop = $(window).scrollTop();
+        var docViewBottom = docViewTop + $(window).height();
+        var midView = (docViewBottom - ($(window).height()/2))
+
+        var style = "left:400;top:" + (docViewBottom + 300)
+
+        var label = "<div class='greenbar_completed' style='" + style + "' id='complete_reward'>"
+        label += "<img src='../images/arquillian_ui_success_64px.png'/> You completed " + guide.title + "!"
+        label += "</div>"
+
+        $(label).appendTo("body");
+        $("#complete_reward").animate({
+            top:midView
+        }, 3000
+        ).show()
+      }
+
+      function slide_in_ike_greenbar(guide, index) {
+        var docViewTop = $(window).scrollTop();
+        var docViewBottom = docViewTop + $(window).height();
+        var midView = (docViewBottom - ($(window).height()/2))
+        var width = $(window).width();
+
+        var style = "top:" + midView + ";left:" + -300;
+
+        var text = "You got " + index + " out of " + guide.bars + " GreenBars!"
+
+        var label = "<div class='greenbar_reward' style='" + style + "' id='reward'>"
+        label += "<img src='../images/arquillian_ui_success_64px.png'/> " + text
+        label += "</div>"
+
+        $(label).appendTo("body");
+        $("#reward").animate({
+            left:350
+        }, 500, function() {
+            $("#reward").fadeOut(1000, function() {
+              $("#reward").remove()
+            })
+          }
+        ).show()
+      }
+
+      $.game_init([
+        {
+          id: 'A',
+          title: 'Guide number 1',
+          updated: '20-09-2011',
+          level: 1,
+          bars: 2,
+          link: 'test/'
+        }
+      ]);
+      $.game_setCurrentGuide('A');
+      $.game_onViewed(mark_index);
+      $.game_onViewed(mark_main);
+      $.game_onCompleted(mark_main);
+      $.game_onCompleted(mark_index);
+      $.game_onCompleted(slide_in_ike_complete);
+      $.game_onGreenBar(slide_in_ike_greenbar);
+
+      // document.ready
+      $(function() {
+        // start to mark the existing styles
+        $.game_start();
+        
+      });
+    </script>
+  </head>
+  <body>
+
+    <div id="guides">
+      <a href="" id="A">Guide A</a>
+      <a href="" id="B">Guide B</a>
+      <a href="" id="C">Guide C</a>
+    </div>
+
+    <div id="guides2">
+      <a href="" id="main_A">Guide A</a>
+      <a href="" id="main_B">Guide B</a>
+      <a href="" id="main_C">Guide C</a>
+    </div>
+
+    <div id="guide">
+      <p>bla bla</p>
+      <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+      <p>bla bla</p>
+      <p>bla bla</p>
+      <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+      <p>bla bla</p>
+      <p>bla bla</p>
+      <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+      <p>bla bla</p>
+      <p>bla bla</p>
+      <p>bla bla <span class="greenbar">greenbar</span></p>
+      <p>bla bla</p>
+      <p>bla bla</p>
+      <p>bla bla</p>
+      <p>bla bla</p>
+      <p>bla bla</p>
+      <p>bla bla</p>
+      <p>bla bla</p>
+      <p>bla bla</p>
+      <p>bla bla</p>
+      <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+      <p>bla bla</p>
+      <p>bla bla</p>
+      <p>bla bla</p>
+      <p>bla bla</p>
+      <p>bla bla</p>
+      <p>bla bla</p>
+      <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+      <p>bla bla</p>
+      <p>bla bla</p>
+      <p>bla bla</p>
+      <p>bla bla</p>
+      <p>bla bla</p>
+      <p>bla bla</p>
+      <p>bla bla</p>
+      <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+      <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+      <p>bla bla</p>
+      <p>bla bla</p>
+      <p>bla bla <span class="greenbar">greenbar</span></p>
+      <p>bla bla</p>
+      <p>bla bla</p>
+      <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+      <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+      <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+      <p>bla bla</p>
+      <p>bla bla</p>
+      <p>bla bla</p>
+      <p>bla bla</p>
+      <p>bla bla</p>
+      <p>bla bla</p>
+    </div>
+  </body>
+</html>

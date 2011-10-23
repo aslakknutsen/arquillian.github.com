@@ -18,6 +18,34 @@ layout: base
   $(document).ready(function() {
     $('#guides_menu, .guides_menu').click(toggleGuidesMenu);
   });
+
+:javascript
+  function mark_guide_index() {
+    $('#' + this.id).css('text-decoration', 'line-through');
+  }
+  function mark_guide_front_index() {
+    $('#main_' + this.id).append(' <img src=\'/images/bullet_check.gif\' />');
+  }
+  function show_guide_completed(guide, guides) {
+      alert('completed guide: ' + guide.id)
+  }
+  function show_greenbar_completed(guide, index) {
+      alert('Green Bar!!')
+  }
+
+  #{init_guide_game(site.guides)}
+  #{if page.guide then "$.game_setCurrentGuide('#{page.guide.guide_id}')" else "" end}
+
+  $.game_onViewed(mark_guide_index);
+  $.game_onViewed(mark_guide_front_index);
+  $.game_onCompleted(mark_guide_index);
+  $.game_onCompleted(show_guide_completed);
+  $.game_onGreenBar(show_greenbar_completed);
+
+  $(document).ready(function() {
+    $.game_start()
+  });
+
 #main
   #section
     .container
@@ -39,7 +67,7 @@ layout: base
               %dt= group[1]
               - for guide in site.guides.select{|x| x.group == index + 1}.sort{|a, b| a.order <=> b.order}
                 %dd<
-                  %a{:href=>guide.output_path}= guide.title
+                  %a{:href=>guide.output_path, :id=>guide.guide_id}= guide.title
           %dl.ref
             %dt Reference
             %dd<

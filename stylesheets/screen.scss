@@ -1496,3 +1496,22 @@ body.home a#forkme {
     width: 178px;
   }
 }
+
+
+.greenbar_reward {
+  background-color: #eee;
+  width: 250;
+  height: 100;
+  display: none;
+  position: absolute;
+  border: 1px solid #000;
+}
+
+.greenbar_completed {
+  background-color: #eee;
+  width: 400;
+  height: 150;
+  display: none;
+  position: absolute;
+  border: 1px solid #000;
+}
