@@ -1,0 +1,139 @@
+---
+layout: guide
+title: "Getting Started SPI"
+authors: [Aslak Knutsen]
+tags: [spi]
+guide_summary: Learn the first steps on how to extend Arquillian to fit your projects's needs.
+guide_group: 3
+guide_order: 10
+---
+
+This guide introduces you to the Arquillian SPIs. After reading this guide, you'll be able to:
+
+* Understand the internals of Arquillian
+* Write your own Arquillian Extension
+* Add your Extension to your project
+* Execute the Extension as part of your tests
+
+You'll learn all of these skills by incorporating Arquillian into the test suite of a Java EE application with a Maven build. We've designed this guide to be a _fast read_ to get you started quickly!
+
+h3. Assumptions
+
+This guide assumes that you are fairly familiar with Arquillian from the users perspective, that you know the basic building block and setup. If you're not, you will have a better experience if you read some of the following guides first: "Getting Started":/guides/getting_started and "Getting Started: Rinse and Repeat":/guides/getting_started_rinse_and_repeat .
+
+h3. The Basics: Core
+
+Before we get started with writing our first Extensions, let's look at some of the basic building blocks that make up Arquillian Core. From a high mile view; Arquillian Core is an event based engine which can share state via multiple  different contexts.
+
+We have our _@Observers_, _@Inject's_, _Instance's_ and _Event's_ and in many ways the Arquillian internals resembles CDI, but it's not CDI. 
+
+Let's jump right in!
+
+h4. @Observes T
+
+The _Observers_ are the working bees of the core. When an @Event@ is fired, one or more _Observer's_ are there to handle it. An @Event@ in Arquillian has no special type, it's any type. An Object of type @String@ can be an @Event@, it just needs to be fired.
+
+bc(prettify).. public void x(@Observes T event) {
+    // do magic
+}
+
+p. As you can see, the contract for an _Observer_ is fairly simple.
+
+p(info). %Any @Class@ that is registered as an _Observer_ and has a @Method@, where the first argument is annotated with _@Observes_, will be called when an @Event@ of the argument type is fired.%
+
+p. To give you a better pricture of what an @Event@ will be in the context of Arquillian's Extensions, let me give you a few examples; @BeforeSuite@, @BeforeClass@, @Before@, @Test@, @BeforeDeploy@, @AfterStart@ and so on.
+
+h4. @Observes EventContext&lt;T&gt;
+
+You can _Observe_ an @Event@ directly, but you can also _intercept_ an @Event@. This you do by _Observing_ the @EventContext@ of an @Event@ and not the @Event@ it self.
+
+bc(prettify).. public void x(@Observes EventContext<T> context) {
+  // do before magic
+  context.proceed();
+  // do after magic
+}
+
+p. Now your _Observer_ is behaving like an _Around Invoke Interceptor_, which gives it the added power of not only adding behavior before and after the _Observer_ chain is invoked, but also the option to cancel the @Event@ if desired by not invoking _proceed_ on the @EventContext@. 
+
+h4. @Inject Event&lt;T&gt;
+
+So we can _Observe_ all these @Event's@, but where do they all come from?
+
+Within a @Class@ registered as an _Observer_ you can define _InjectionPoint's_ for different types, where @Event@ is one of them. 
+
+bc(prettify).. public class X {
+
+  @Inject
+  Event<EventTypeToFire> myEvent;
+
+  public void x(@Observes SomeOtherEvent event)
+  {
+      // do magic
+      myEvent.fire(new EventTypeToFire());
+  }
+}
+
+p. The @Event@ _InjectionPoint_ will be replaced by Arquillian during initialization with an event proxy, a gateway into the center of the event engine. When you call _fire_ on your @Event@, the registered _Oberservers_ of that type will be called synchronously.
+
+
+h4. @Scopes
+
+We mentioned in the high mile overview that you could share state via multiple context, that's where the _scopes_ fit in. Each _scope_ represents a context. Think of a context or a scope as a Map of types and the types registered instance.
+
+Arquillian core it self only has a single scope, @ApplicationScope@, but extensions can register and control their own. When we put them all together, we get @SuiteScope@, @ClassScope@, @TestScope@, @ContainerScope@ and @DeploymentScope@. 
+Are they all active at once? Not at all, which are active at which point in time depends.. Let's leave it at that for now. 
+
+h4. @Inject Instance&lt;T&gt;
+
+Similar to the @Event@ _InjectionPoint_, you can _inject_ a @Instance@ in your _Observers_. Arquillian will replace the @Instance@ _InjectionPoint_ with an instance proxy, a read only gateway into the scopes, or contexts.
+
+bc(prettify).. public class X {
+
+  @Inject
+  Instance<SomeType> myInstance;
+
+  public void x(@Observes SomeOtherEvent event)
+  {
+      SomeType my = myInstance.get();
+      // do magic
+  }
+}
+
+p. We use @Instance@ injections when we want to read objects from the shared contexts.
+
+Awesome, we can leech! But this being OpenSource and all, how do we share?
+
+h4. @Inject InstanceProducer&lt;T&gt;
+
+To share an object with other _Obervers_ we use the _InjectionPoint_ @InstanceProducer@, Arquillian will replace this with an instance producer proxy, a read write gateway into the scopes, or contexts.
+
+bc(prettify).. public class X {
+
+  @Inject @ApplicationScoped
+  InstanceProducer<SomeType> myInstance;
+
+  public void x(@Observes SomeOtherEvent event)
+  {
+      // do magic
+      myInstance.set(new SomeType());
+  }
+}
+
+p. This is the first time we see the _scopes_ directly referenced, it's when we produce objects we tell Arquillian in which _scope_ it should be placed.
+
+h3. The LoadableExtension
+
+
+h3. Create a project
+
+h3. Create the implementation
+
+h3. Extension registration
+
+div(filename). src/main/resources/META-INF/services/org.jboss.arquillian.core.spi.LoadableExtension
+
+bc(prettify).. org.jboss.arquillian.guide.spi.LifecycleExtension
+
+h3. Create a Test class
+
+h3. Run it all
