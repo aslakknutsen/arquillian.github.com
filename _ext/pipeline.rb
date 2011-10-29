@@ -5,6 +5,7 @@ require 'interwiki'
 require 'github'
 require 'jira'
 require 'arquillian'
+require 'arquillian_api'
 require 'arquillian_model'
 require 'guide'
 require 'lanyrd'
@@ -35,6 +36,7 @@ Awestruct::Extensions::Pipeline.new do
     extension Awestruct::Extensions::Jira::ReleaseNotes.new('ARQ', '12310885')
     extension Awestruct::Extensions::GitHub::Release.new('blog', 'textile', '2010-09-14')
     extension Awestruct::Extensions::Arquillian::JiraVersionPrefix.new
+    extension Awestruct::Extensions::Arquillian::API::Containers.new
 
     extension Awestruct::Extensions::Lanyrd::Search.new('arquillian')
 
