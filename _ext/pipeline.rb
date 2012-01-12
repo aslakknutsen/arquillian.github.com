@@ -12,6 +12,7 @@ require 'sassy-buttons'
 require 'textile_plus'
 require 'disqus_more'
 require 'posts_helper'
+require 'keywords'
 
 Awestruct::Extensions::Pipeline.new do
     # Custom tags and syntax for textile markup
@@ -57,6 +58,8 @@ Awestruct::Extensions::Pipeline.new do
 
     # Needs to be after Indexifier to get the linking correct
     extension Awestruct::Extensions::Guide::Index.new('/guides', '2011-10-12')
+
+    extension Awestruct::Extensions::Keywords::Extractor.new
 
     #helper Awestruct::Extensions::Partial
     helper Awestruct::Extensions::GoogleAnalytics

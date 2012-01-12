@@ -47,6 +47,16 @@ layout: guide-base
           %li
             %a{ :id=>"#{chapter.link_id}_link", :href=>"##{chapter.link_id}" }
               =chapter.text
+
+      - if page.keywords and page.keywords.length > 0
+        #keywords
+          %h3 Referenced Projects
+          %ul
+            - for keyword in page.keywords
+              %li
+                %a{ :href=>"#{keyword.link}" }
+                  =keyword.name
+
   :javascript
     $(window).load(function() {
       var $toc = $('#toc');
