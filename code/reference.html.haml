@@ -1,0 +1,336 @@
+---
+layout: default
+title: Reference
+javascripts: [ /javascripts/siphon-20120407.js ]
+---
+-page.header_title="#{page.title} <input type=\"text\" id=\"ref_search\" />"
+:plain
+	<script>
+		$(window).load(function() { 
+			jQuery.ajax({
+				url: '/api/reference.json', 
+				dataType: 'json'
+			})
+			.done(function(data) { 
+				// create a new Array with all Keys
+				dataArr = new Array()
+				for(t in data) {
+					dataArr.push(t)
+				}
+				update_doc_from_anchor(data)
+				$(window).bind('hashchange', function() { update_doc_from_anchor(data) });
+				$('#contribute').click(function() {
+					display_low_fruits(search_for_low_hanging_fruits(data))
+				})
+				$('#ref_search').typeahead({
+					source: dataArr,
+					updater: function(item) {
+						// set url hash to trigger doc update
+						window.location.hash = item
+						return data[item].name;
+					},
+					matcher: function(item) {
+						// item is the key (fully qualified class name)
+						// attempt to match both key and artifactId
+
+						// allow search query of type: artifactid<space>name
+						// attempt to match both
+						item_qualified_name = item.toLowerCase()
+						item_artifact_id = data[item].artifact.artifactId
+						query_segments = this.query.toLowerCase().split(' ')
+						for(i = 0; i < query_segments.length; i++)
+						{
+							query_segment = query_segments[i]
+							match_segment = false
+							if(item_qualified_name.indexOf(query_segment) != -1) {
+								match_segment = true
+							}
+							else if(item_artifact_id.indexOf(query_segment) != -1) {
+								match_segment = true
+							}
+							if(!match_segment) {
+								return false
+							}
+						}
+						return true
+					},
+					sorter: function(items) {
+						// order API before SPI and use rank to sort within the types
+						return items.sort(function(a, b) {
+							d_a = data[a]
+							d_b = data[b]
+							return sort_refs(d_a, d_b)
+						})
+					},
+					highlighter: function (item) {
+						// show typeahead pull down as:
+						//    name (artifactId) (rank)
+						//    package
+
+						// show matches in name, artifactId and package
+						return $('#highlight_template').render({query: this.query, item: data[item]})
+					}
+				})
+			}) 
+		})
+		function search_for_low_hanging_fruits(data) {
+			result = new Array()
+			for(name in data) {
+				item = data[name];
+
+				cound_be_improved = false
+				improve_short_description = false
+				improve_missing_example = false
+				improve_no_outbound = false
+				improve_no_inbound = false
+
+				if(item.desc.length < 150) {
+					improve_short_description = true
+					cound_be_improved = true
+				}
+				if(!item.desc.match(/example/im)) {
+					improve_missing_example = true
+					cound_be_improved = true
+				}
+				if(item.inbound == undefined) {
+					improve_no_inbound = true
+					cound_be_improved = true
+				}
+				if(item.outbound == undefined) {
+					improve_no_outbound = true
+					cound_be_improved = true
+				}
+				if(cound_be_improved) {
+					result.push({
+						improvements: {
+							short_description: improve_short_description,
+							missing_example: improve_missing_example,
+							no_outbound: improve_no_outbound,
+							no_inbound: improve_no_inbound
+						},
+						item: item
+					})
+				}
+			}
+			return result.sort(sort_improve_refs)
+		}
+		function display_low_fruits(items) {
+			$('#doc').html(
+				$('#lowfruit_template').render({results: items})
+			);
+		}
+		function sort_improve_refs(a, b) {
+			return sort_refs(a.item, b.item)
+		}
+		function sort_refs(a, b) {
+			// order: API(over SPI) -> Rank -> Name
+			if(b.artifact_type == a.artifact_type) {
+				order = b.rank - a.rank
+				if(order == 0) { // order on name if same ranking
+					if(b.name < a.name) {
+						return 1
+					} else if (b.name > a.name) {
+						return -1
+					} else {
+						return 0
+					}
+				} else {
+					return order
+				}
+			} else if(b.artifact_type == 'api') {
+				return 1
+			} else {
+				return -1
+			}
+		}
+
+		function update_doc_from_anchor(data) {
+			selected_val = window.location.hash.substring(1)
+			if (selected_val !== '') {
+				doc = data[selected_val]
+				if(doc !== undefined) {
+					$('#ref_search').val(doc.name)
+					display_doc(data, doc)
+				}
+			}
+		}
+
+		function display_doc(data, doc) {
+			$('#doc').html(
+				$('#doc_template').render({ref: doc, refs: data})
+			);
+			prettify();
+		}
+
+		$.views.helpers({
+			cleanup_desc: function(refs, desc, keys) {
+				cleaned = desc.replace(/\n/g, '<br/>')
+				cleaned = cleaned.replace(/<code>/g, "<pre class=\"prettify\"><code class=\"prettify\">")
+				 // concat to workaround odd haml issue inserting newline entity char if forward slash added in tag
+				cleaned = cleaned.replace(/<\/code>/g, "<" + "/" + "code><" + "/" + "pre>")
+				for(key in keys) {
+					key_ref = refs[key]
+					cleaned = cleaned.replace(new RegExp("(\\W)(" + key_ref.name + ")(\\W)", "g"), "$1<a href=\"#" + key +"\">$2</a>$3")
+				}
+				return cleaned
+			},
+			filter_bounds: function(refs, bounds, type) {
+				
+				bound_apis = new Array()
+				for(bound in bounds) {
+					ref = refs[bound]
+					if (ref == null) {
+						return
+					}
+					if(ref.artifact_type == type) {
+						bound_apis.push(ref)
+					}
+				}
+				bound_apis.sort(sort_refs)
+
+				return bound_apis
+			},
+			create_edit_link: function(ref) {
+				url = ref.repository.http_url
+				base = ref.repository.base_path
+				file = ref.file
+				return url + "/edit/master/" + base + "src/main/java/" + file
+			},
+			determine_extra_style: function(item) {
+				result = ''
+				if(item.artifact_type == 'spi') {
+					result += ';color:#aaa'
+				}
+				return result
+			},
+			highlight_match: function(source, query) {
+				query_expressions = ''
+				query_segments = query.split(' ')
+				for(i = 0; i < query_segments.length; i++) {
+					query_segment = query_segments[i].trim()
+					if(query_segment == '') {
+						continue
+					}
+					query_segment = query_segment.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, '\\$&')
+					query_expressions += query_segment + "|"
+				}
+				query_expressions = query_expressions.substring(-1)
+				return source.replace(new RegExp('(' + query_expressions + ')', 'ig'), function ($1, match) {
+					return '<strong>' + match + '</strong>'
+				})
+			},
+			create_improvements: function(imp) {
+				result = new Array()
+				if(imp.short_description) {
+					result.push("Short Description")
+				}
+				if(imp.missing_example) {
+					result.push("Missing Examples")
+				}
+				if(imp.no_inbound) {
+					result.push("No incoming links")
+				}
+				if(imp.no_outbound) {
+					result.push("No outgoing links")
+				}
+				return result.join(', ')
+			}
+
+		  })
+	</script>
+
+%script#doc_template{:type=>'text/x-jsrender'}
+	.row
+		.span8 
+			%h3 <small>{{:ref.package}}.</small>{{:ref.name}} <span style="font-size:0.7em"> ({{:ref.rank}})</span>
+			.desc
+				{{:~cleanup_desc(refs, ref.desc, ref.outbound)}}
+		.span4{:style=>'align:top'} 
+			.artifact 
+				%h4 Source artifact
+				%table
+					%tr
+						%td groupId:
+						%td {{:ref.artifact.groupId}}
+					%tr
+						%td artifactId:
+						%td {{:ref.artifact.artifactId}}
+					%tr
+						%td since:
+						%td {{:ref.artifact.since}}
+			%br
+			.inbound
+				%h4 Incomming references
+				%h5 API
+				%ul
+					{{for ~filter_bounds(refs, ref.inbound, 'api')}}
+					%li
+						%a{:href=> '#{{:key}}'}
+							{{:name}}
+						<span style="font-size:0.7em"> ({{:rank}})</span>
+					{{/for}}
+				%h5 SPI
+				%ul
+					{{for ~filter_bounds(refs, ref.inbound, 'spi')}}
+					%li 
+						%a{:href=> '#{{:key}}'}
+							{{:name}}
+						<span style="font-size:0.7em"> ({{:rank}})</span>
+					{{/for}}
+			.outbound
+				%h4 Outgoing references
+				%h5 API
+				%ul
+					{{for ~filter_bounds(refs, ref.outbound, 'api')}}
+					%li
+						%a{:href=> '#{{:key}}'}
+							{{:name}}
+						<span style="font-size:0.7em"> ({{:rank}})</span>
+					{{/for}}
+				%h5 SPI
+				%ul
+					{{for ~filter_bounds(refs, ref.outbound, 'spi')}}
+					%li 
+						%a{:href=> '#{{:key}}'}
+							{{:name}}
+						<span style="font-size:0.7em"> ({{:rank}})</span>
+					{{/for}}
+			%br
+			.links
+				.edit_link
+					%a{:href => '{{:~create_edit_link(ref)}}'} Edit Source
+
+%script#highlight_template{:type=>'text/x-jsrender'}
+	%div{:style=> 'line-height:1.2em{{:~determine_extra_style(item)}}'}
+		{{:~highlight_match(item.name, query)}}
+		%span{:style=> 'font-size:0.8em'}
+			{{:~highlight_match(item.artifact.artifactId, query) }}
+		%span{:style=> 'font-size:0.6em'}
+			({{:item.rank}})
+		%br
+		%span{:style=> 'font-size:0.7em'}
+			{{:~highlight_match(item.package, query) }}
+
+%script#lowfruit_template{:type=>'text/x-jsrender'}
+	{{for results}}
+	.row{:style => 'margin-bottom:4px'}
+		.span6
+			%div{:style=> 'line-height:1.2em{{:~determine_extra_style(item)}}'}
+				{{:item.package}}.{{:item.name}}
+				%br
+				.span{:style => 'font-size:0.8em'}
+					{{:item.artifact.artifactId}} ({{:item.rank}})
+		.span4{:style=> 'font-size:0.8em;align:top'}
+			{{:~create_improvements(improvements)}}
+
+		.span2{:style=> 'align:top'}
+			%a{:href => '#{{:item.key}}'} View
+			%a{:href => '{{:~create_edit_link(item)}}'} Edit
+
+	{{/for}}
+
+#content
+	#doc
+
+	%br
+	%a{:id =>"contribute"} Help improve the docs!
