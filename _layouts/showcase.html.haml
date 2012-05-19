@@ -1,0 +1,101 @@
+---
+layout: base
+---
+- page.title = "Arquillian Showcase: #{page.showcase.name}"
+- page.body_class = "guide"
+#main(role='main')
+  #content-header
+    .container
+      .headline
+        %h1
+          %a{:href=>'/showcase/'} Showcase: 
+          #{page.showcase.name}
+          %small=page.showcase.description
+        .directory
+          %a#guides_menu.guides_menu{:href=>'./'}
+            Run Example
+            %i.icon-menu-closed
+          #guides{:style=>'display: none'}
+            %a.guides_menu{:href=>'./'}
+              Run Example
+              %i.icon-menu-open
+            %hr.clear
+              The source code for this example can be found in the 
+              %a{:href=>"#{page.showcase.repository.http_url}"}=page.showcase.repository.path 
+              %i.icon-github
+              GitHub repository. The first thing we need to do is to get the source by downloading the repository and then go into the examples folder:
+              %pre{:class=>'prettify'}
+                %code{:class=>'prettify'}="git clone #{page.showcase.repository.clone_url}<br/>cd #{page.showcase.repository.path}/#{page.showcase.module_path}"
+
+              - if !page.showcase.tests.nil?
+                Now we are ready to start testing. You can run all the tests in this example by executing:
+                %pre{:class=>'prettify'}
+                  %code{:class=>'prettify'}="mvn test"
+                Or you can run individual tests by executing one of the following:
+                %pre{:class=>'prettify'}
+                  %code{:class=>'prettify'}
+                    - for test in page.showcase.tests                  
+                      mvn test -Dtest=#{test.name}
+
+              - if !page.showcase.profiles.nil? and !page.showcase.tests.nil?
+                This example support multiple different containers. You choose which container to use by activating one of the  Maven profiles defined. Adding -P "profile-name" to one of the command lines above will do the trick, e.g.:
+                %pre{:class=>'prettify'}
+                  %code{:class=>'prettify'}="mvn test -Dtest=#{page.showcase.tests.first.name} -P #{page.showcase.profiles.first}"
+                The available profiles are: #{page.showcase.profiles.join(', ')}
+
+              
+        %script $(function() { activateGuideMenuControl() })
+  .container#guide
+    #content
+      - if !page.showcase.readme_path.nil?
+        =partial("../#{page.showcase.repository.clone_dir}/#{page.showcase.readme_path}")
+        %script{ :type=>'text/javascript'}
+          $(window).load(function() { $('pre>code').addClass('prettify').parent().addClass('prettify'); prettify() })
+    #sidebar
+      .well
+        %h3
+          %i.icon-tag
+          Technologies
+        %ul.unstyled
+          - if !page.showcase.technologies.nil?
+            - for tech in page.showcase.technologies.sort
+              %li
+                %a{:href=>"/showcase/##{tech.gsub(/\W/, '')}"}=tech
+
+      - if !page.showcase.tests.nil?
+        .well
+          %h3
+            %i.icon-play-circle
+            Test Cases
+          %ul.unstyled
+            - for test in page.showcase.tests
+              %li
+                %a{:href=>"##{test.name}", :data => {:toggle=>'modal'}}=test.name
+
+      - if !page.showcase.apis.nil?
+        - apis = page.showcase.apis.sort
+        .well
+          %h3
+            %i.icon-tags
+            API's in use
+          %ul.unstyled            
+            - for api in apis
+              %li=api
+
+    - if !page.showcase.tests.nil?
+      - for test in page.showcase.tests
+        .modal.hide{:id=>"#{test.name}", :style=>"width:700px;top:40%"}
+          .modal-header
+            %botton.close{:data => {:dismiss=>'modal'}} x
+            %h3=test.name
+            - if !test.description.nil?
+              .desc=test.description.gsub(/\n/, "<br/>")
+
+          .modal-body
+            %pre{:class=>'prettify'}
+              %code{:class=>'prettify'}=test.content
+
+          .modal-footer
+            %i.icon-github 
+            %a.bnt{:href=>"#{page.showcase.repository.http_url}/blob/master/#{test.path}"} View on GitHub
+

@@ -6,6 +6,7 @@ require_relative 'repository'
 require_relative 'arquillian'
 require_relative 'releases'
 require_relative 'patched_atomizer'
+require_relative 'showcase'
 require_relative 'autotag'
 require_relative 'common'
 require_relative 'guide'
@@ -46,7 +47,7 @@ Awestruct::Extensions::Pipeline.new do
         :identity_search_keys => ['name', 'username'], :assign_username_to => 'jboss_username'),
     Identities::JBossCommunity::Crawler.new
   )
-
+  extension ShowcaseComponent.new
   # Releases extension must be after jira and repository extensions and before posts extension 
   extension Awestruct::Extensions::Releases::Posts.new('/blog', :for_repo_owners => ['arquillian'], :since => '2011-01-01')
 
