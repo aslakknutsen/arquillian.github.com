@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Arquillian Blog &#183; Arquillian</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="An innovative testing platform for the Java Virtual Machine (JVM). Open source. Highly extensible." name="description" />
+    <link href="/blog/atom.xml" rel="alternate" title="Arquillian blog Atom feed" type="application/atom+xml" />
+    <link href="/stylesheets/screen.css" rel="stylesheet" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.js"></script>
+    <![endif]-->
+    <link href="/favicon.ico" rel="shortcut icon" />
+  </head>
+  <body class="blog index">
+    <header class="navbar navbar-fixed-top" id="banner" role="banner">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">
+            <span class="logo"></span>
+            <span class="name">Arquillian</span>
+          </a>
+          <nav class="nav-collapse" role="navigation">
+            <ul class="nav">
+              <li><a href="/invasion/">Invasion!</a></li>
+              <li><a href="/features/">Features</a></li>
+              <li><a href="/guides/">Guides</a></li>
+              <li class="active"><a href="/blog/">Blog</a></li>
+              <li><a href="/community/">Community</a></li>
+              <li><a href="/code/">Code</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+    <div id="main" role="main">
+  <div id="content-header">
+    <div class="container">
+      <h1>
+        <a href="/blog/">Arquillian Blog</a>
+      </h1>
+    </div>
+  </div>
+  <div class="container">
+    <div id="content">
+  <article class="post">
+  <header class="header">
+    <h2 class="title">
+      <a href="/blog/2012/04/11/arquillian-graphene-1-0-0-Final/">Graphene 1.0.0.Final Released</a>
+    </h2>
+    <div class="byline">
+      <img class="avatar" src="http://gravatar.com/avatar/1ce36ce1c246b989f9cd79504c400b08?s=44" />
+      <span class="author">Posted by
+      <a href="https://community.jboss.org/people/lfryc">Lukas Fryc</a></span>
+      <span class="dateinline">on Apr 11, 2012</span>
+      <div class="date"><abbr>Apr</abbr> 11</div>
+    </div>
+  </header>
+  <div class="body">
+    <p>The Arquillian team is proud to announce the <em>1.0.0.Final</em> release of the <em>Graphene</em> component!</p>
+<p>Graphene is joining rest of the Arquillian party, building on top of Arquillian testing platform Drone extension, both which <a href="/blog/2012/04/10/arquillian-first-stable-release/">reached their first stable version yesterday</a>.</p>
+<h3>The Mission</h3>
+<p><a href="/modules/graphene-extension">Arquillian Graphene</a> focuses on <strong>making real-browser automation a breeze</strong>.</p>
+<p>The project was started to address simplification of covering AJAX-enabled applications with browser automation tests.</p>
+<p>While Selenium project is focusing on unified API, integration with variety of browsers, Graphene project is addressing the real-world testing challenges:</p>
+<ul>
+	<li>rapid development
+	<ul>
+		<li>straight-forward</li>
+		<li>readable API</li>
+		<li>fast turnaround</li>
+	</ul></li>
+	<li>object-oriented
+	<ul>
+		<li>type-safe API</li>
+		<li>dependency injection of thread-local context</li>
+	</ul></li>
+	<li>instabilities and speed of execution in continuous integration
+	<ul>
+		<li>jQuery selectors</li>
+		<li>request guards</li>
+	</ul></li>
+</ul>
+<h3>Availability</h3>
+<p>The Graphene bits are available in <a href="https://repository.jboss.org/nexus">JBoss Community artifact repository</a>, dual-licensed under LGPL v2.1 (backward-compatibility) and ASL v2.0 (which uses rest of the Arquillian sub-projects).</p>
+<p>For those who are already using Graphene in a Maven project, you can simply update the version to <code>1.0.0.Final</code>.</p>
+<p>You can start with the tests using our <a href="https://docs.jboss.org/author/display/ARQGRA/Getting+Started">Getting Started with the JBoss Maven repository guide</a>.</p>
+<h3>The Future</h3>
+<p>Right now we are heavily working on making the new version of Graphene 2 on the road.</p>
+<p>Selenium 2 with its WebDriver API made huge progress with API <strong>accessibility and readability</strong>. It&#8217;s already pleasure to work with this API in Java world.</p>
+<p>However still there are <strong>many shortcomings we are going to address with Graphene 2</strong>, building on top of concepts brought in Graphene 1 and adding new features, which opens world of new possibilities:</p>
+<ul>
+	<li>dependency injection of thread-local context</li>
+	<li>fast development turnaround</li>
+	<li>cross-cutting concerns (command interception)</li>
+	<li>request guards</li>
+	<li>page extensions</li>
+	<li>component objects
+	<ul>
+		<li>extension of page objects concept</li>
+	</ul></li>
+	<li>JavaScript test execution from within Selenium test</li>
+</ul>
+<p>If you enjoy testing and you are unsatisfied with the current browser automation tooling, it&#8217;s <strong>perfect time</strong> to step in and help us to <strong>bring the future</strong>!</p>
+<h3>Project Links</h3>
+<ul>
+	<li><a href="https://community.jboss.org/wiki/ArquillianGraphene">Home page</a></li>
+	<li><a href="https://github.com/arquillian/arquillian-graphene">Source code</a></li>
+	<li><a href="https://docs.jboss.org/author/display/ARQGRA/Home">Documentation</a></li>
+	<li><a href="https://issues.jboss.org/browse/ARQGRA">Issue tracker</a></li>
+</ul>
+<h3>What is Arquillian?</h3>
+<p>Arquillian is a platform that simplifies Java middleware testing. It brings your test to the runtime, freeing you from the concern of managing the runtime from your test. As a result, you can focus on the task at hand, <em>writing your integration test logic</em>.</p>
+<h3>Release details</h3>
+<table class="table table-bordered table-striped">
+  <tbody>
+    <tr>
+      <th>Component</th>
+      <td>
+        <a href="/modules/graphene-extension/">Graphene</a>
+      </td>
+    </tr>
+    <tr>
+      <th>Version</th>
+      <td>
+        1.0.0.Final
+        <span class="label tag">
+          <a href="https://github.com/arquillian/arquillian-graphene/commit/4912115040b0ce4e9572ebabb647c9d7d1895b43.html">view tag</a>
+        </span>
+      </td>
+    </tr>
+    <tr>
+      <th>Release date</th>
+      <td>2012-04-11</td>
+    </tr>
+    <tr>
+      <th>Released by</th>
+      <td>Lukas Fryc</td>
+    </tr>
+    <tr>
+      <th>Compiled against</th>
+      <td>
+        <ul class="unstyled">
+          <li>Arquillian Core &#8211; 1.0.0.Final</li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p>
+  Thanks to the following list of contributors:
+  <a href="https://community.jboss.org/people/lfryc">Lukas Fryc</a>
+</p>
+  </div>
+  <div class="footer">
+    <a href="/blog/2012/04/11/arquillian-graphene-1-0-0-Final/">permalink</a>
+    |
+    <i class="icon-tags"></i>
+    tagged as
+    <a class="tag" href="/blog/tags/release/">release</a> <a class="tag" href="/blog/tags/extension/">extension</a> <a class="tag" href="/blog/tags/graphene/">graphene</a> <a class="tag" href="/blog/tags/jbosscentral/">jbosscentral</a>
+  </div>
+</article>
+<article class="post">
+  <header class="header">
+    <h2 class="title">
+      <a href="/blog/2012/04/10/arquillian-first-stable-release/">Death to all bugs! Arquillian testing platform reaches first stable release</a>
+    </h2>
+    <div class="byline">
+      <img class="avatar" src="http://gravatar.com/avatar/dcccd96c499963133f7f95e7ffa20c4e?s=44" />
+      <span class="author">Posted by
+      <a href="https://community.jboss.org/people/dan.j.allen">Dan Allen</a></span>
+      <span class="dateinline">on Apr 10, 2012</span>
+      <div class="date"><abbr>Apr</abbr> 10</div>
+    </div>
+  </header>
+  <div class="body">
+    <p><img src="/images/blog/celebration-ike.jpg" class="pull-right" alt="" /> Red Hat, Inc. and the JBoss Community today announced the 1.0.0.Final release of <a href="http://arquillian.org">Arquillian</a>, its award-winning testing platform built to run on the Java Virtual Machine (JVM). Arquillian substantially reduces the effort required to write and execute Java middleware integration and functional tests. It even enables test engineers to address scenarios previously considered untestable or too expensive to test.</p>
+<p>The Arquillian project is led by <a href="https://community.jboss.org/people/aslak">Aslak Knutsen</a> and has received contributions from over 100 <a href="/community/contributors">contributors and community members</a> (between Arquillian and ShrinkWrap combined). At the JavaOne 2011 conference, Arquillian <a href="/blog/2011/10/02/arquillian-wins-a-duke-choice-award">received the Duke&#8217;s Choice Award</a> for innovation in integration testing.</p>
+<p>The 1.0.0.Final release of <a href="/modules/drone-extension">Arquillian Drone</a>, a key add-on to the platform, is included in this release. Final versions of select container adapters will be released later in the week. <a href="http://jboss.org/shrinkwrap">ShrinkWrap</a>, a central component of Arquillian, announced its 1.0.0.Final release last week.</p>
+<h3>Mission and History</h3>
+<p>Arquillian adheres to three core principles:</p>
+<ul>
+	<li>Tests should be portable to any supported container</li>
+	<li>Tests should be executable from the IDE to eliminate the need for an explicit build step and to simplify debugging</li>
+	<li>The platform should unify the Java testing ecosystem by extending or integrating with existing test frameworks</li>
+</ul>
+<p>By focusing on these principles, Arquillian makes integration and functional tests as simple to write and execute as unit tests.</p>
+<p>Arquillian originated from the test harness developed for the CDI 1.0 (JSR-299) specification in 2009. It spun off as an independent project and has evolved into an extensible testing platform. Coming full circle, the test suite in CDI 1.1 (JSR-346), the next iteration of the CDI specification, has migrated to Arquillian. Other specifications are expected to follow. Arquillian is also used by numerous open source projects, including Hibernate, JBoss AS 7, Drools, RHQ, JClouds and Apache DeltaSpike.</p>
+<h3>Functionality</h3>
+<p>Arquillian brings test execution to the target runtime, alleviating the burden on the developer of managing the runtime from within the test or project build. To invert this control, Arquillian wraps a lifecycle around test execution that does the following:</p>
+<ul>
+	<li>Manages the lifecycle of one or more containers</li>
+	<li>Bundles the test case, dependent classes and resources as ShrinkWrap archives</li>
+	<li>Deploys the archives to the containers</li>
+	<li>Enriches the test case with dependency injection and other declarative services</li>
+	<li>Executes the tests inside (or against) the containers</li>
+	<li>Returns the results to the test runner for reporting</li>
+</ul>
+<p>Arquillian runs with Java 1.5 and above, integrates seamlessly with familiar testing frameworks such as JUnit and TestNG and allows tests to be launched using existing IDE, Ant and Maven test plugins.</p>
+<h3>Loving quotes about Arquillian</h3>
+<blockquote>
+<p>&#8230;using Arquillian, we were able to cut the setup needed to run a plugin in-container by 90% and we were able to introduce a number of convenience annotations from which you can get a variety of data injected into your tests.</p>
+  </blockquote></div>
+  <div class="footer">
+    <a href="/blog/2012/04/10/arquillian-first-stable-release/">permalink</a>
+    |
+    <i class="icon-tags"></i>
+    tagged as
+    <a class="tag" href="/blog/tags/announcement/">announcement</a> <a class="tag" href="/blog/tags/mission/">mission</a> <a class="tag" href="/blog/tags/roadmap/">roadmap</a> <a class="tag" href="/blog/tags/testing/">testing</a> <a class="tag" href="/blog/tags/2012/">2012</a> <a class="tag" href="/blog/tags/nonrelease/">nonrelease</a>
+  </div>
+</article>
+<article class="post">
+  <header class="header">
+    <h2 class="title">
+      <a href="/blog/2012/04/10/arquillian-extension-drone-1-0-0-Final/">Arquillian Drone Extension 1.0.0.Final Released</a>
+    </h2>
+    <div class="byline">
+      <img class="avatar" src="http://gravatar.com/avatar/88ab3950e925b4ad37c5d7302d854e87?s=44" />
+      <span class="author">Posted by
+      <a href="https://community.jboss.org/people/kpiwko">Karel Piwko</a></span>
+      <span class="dateinline">on Apr 10, 2012</span>
+      <div class="date"><abbr>Apr</abbr> 10</div>
+    </div>
+  </header>
+  <div class="body">
+    <p>The Arquillian team is proud to announce the <em>1.0.0.Final</em> release of the <em>Arquillian Drone Extension</em> component!</p>
+    <p><img src="/images/blog/drone_400.png" class="graphic pull-right" alt="" /></p>
+    <h3>What is Arquillian?</h3>
+    <p>Arquillian is a platform that simplifies Java middleware testing. It brings your test to the runtime, freeing you from the concern of managing the runtime from your test. As a result, you can focus on the task at hand, <em>writing your integration test logic</em>.</p>
+    <h3>Release details</h3>
+    <table class="table table-bordered table-striped">
+      <tbody>
+        <tr>
+          <th>Component</th>
+          <td>
+            <a href="/modules/drone-extension/">Arquillian Drone Extension</a>
+          </td>
+        </tr>
+        <tr>
+          <th>Version</th>
+          <td>
+            1.0.0.Final
+            <span class="label tag">
+              <a href="https://github.com/arquillian/arquillian-extension-drone/commit/8a860868c54132a8fa8807ba05e77ea605ae5118.html">view tag</a>
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <th>Release date</th>
+          <td>2012-04-10</td>
+        </tr>
+        <tr>
+          <th>Released by</th>
+          <td>Aslak Knutsen</td>
+        </tr>
+        <tr>
+          <th>Compiled against</th>
+          <td>
+            <ul class="unstyled">
+              <li>Arquillian Core &#8211; 1.0.0.Final</li>
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <h3>
+      Release notes and resolved issues
+      <small>0</small>
+    </h3>
+    <p>Extension Drone - Final</p>
+    <p>
+      Thanks to the following list of contributors:
+      <a href="https://community.jboss.org/people/kpiwko">Karel Piwko</a>, <a href="https://community.jboss.org/people/aslak">Aslak Knutsen</a>
+    </p>
+  </div>
+  <div class="footer">
+    <a href="/blog/2012/04/10/arquillian-extension-drone-1-0-0-Final/">permalink</a>
+    |
+    <i class="icon-tags"></i>
+    tagged as
+    <a class="tag" href="/blog/tags/release/">release</a> <a class="tag" href="/blog/tags/extension/">extension</a> <a class="tag" href="/blog/tags/drone/">drone</a> <a class="tag" href="/blog/tags/jbosscentral/">jbosscentral</a>
+  </div>
+</article>
+<article class="post">
+  <header class="header">
+    <h2 class="title">
+      <a href="/blog/2012/04/10/arquillian-core-1-0-0-Final/">Arquillian Core 1.0.0.Final Released</a>
+    </h2>
+    <div class="byline">
+      <img class="avatar" src="http://gravatar.com/avatar/3f27861ec08730fd02c91fe4129d2668?s=44" />
+      <span class="author">Posted by
+      <a href="https://community.jboss.org/people/aslak">Aslak Knutsen</a></span>
+      <span class="dateinline">on Apr 10, 2012</span>
+      <div class="date"><abbr>Apr</abbr> 10</div>
+    </div>
+  </header>
+  <div class="body">
+    <p>The Arquillian team is proud to announce the <em>1.0.0.Final</em> release of the <em>Arquillian Core</em> component!</p>
+<p><img src="/images/arquillian_glossy_no_shadow_icon.png" class="graphic pull-right" alt="" /> Just over two years ago, <a href="/blog/2010/03/11/arquillian-1-alpha-1-released">we announced</a> the first alpha release of Arquillian. We were excited back then to present a new way of testing where tests execute inside the container. We started out offering only support for testing Java EE and a handful of containers adapters.</p>
+<p>Today, we are announcing the 1.0.0.Final release of Arquillian, now a sophisticated integration and functional testing platform that&#8217;s been rearchitected since it&#8217;s debut and is enhanced by a plethora of container adapters, test runners, extensions and tool plugins.</p>
+<p>Over that two year period, Arquillian and our vision for it has matured dramatically. The goal, however, has remained the same: to make integration (and functional) tests as simple to write as unit tests. Now we just want it to be way more powerful and handle a whole lot more scenarios.</p>
+<p>The community has also grown significantly. Over 100 people have contributed to either Arquillian or ShrinkWrap. Several of those contributors are leading one or more modules. Not only do the contributions of these community members help the projects move forward, they bring ideas that take Arquillian down new pathways in pursuit of more advanced, capable and intelligent tests while at the same time driving down the effort to write them.</p>
+<p><strong>Thanks to all of you who have contributed to the Arquillian project!!</strong> The <a href="/community/contributors">army of contributors</a> are the true heros of the Arquillian invasion!</p>
+<p>Now for some details&#8230;</p>
+<p>Since 1.0.0.CR8, the following component upgrades have been introduced, which are defined in the Arquillian <acronym title="Bill of Materials">BOM</acronym>:</p>
+<ul>
+	<li>ShrinkWrap 1.0.0</li>
+	<li>ShrinkWrap Resolver 1.0.0-beta-6</li>
+	<li>ShrinkWrap Descriptors 2.0.0-alpha-2</li>
+</ul>
+<p>The ShrinkWrap Descriptor 2 release is quite different from the 1.x series, but it&#8217;s the way forward :)</p>
+<p>The implementation jar, which previously had the artifactId <code>shrinkwrap-descriptors-impl</code>, has been split into three artifacts:</p>
+<ul>
+	<li><code>shrinkwrap-descriptors-impl-javaee</code> &#8211; Java EE 5 &amp; 6 Descriptors</li>
+	<li><code>shrinkwrap-descriptors-impl-jboss</code> &#8211; JBoss AS Specific Descriptors</li>
+	<li><code>shrinkwrap-descriptors-impl-misc</code> &#8211; Jetty Descriptors</li>
+</ul>
+<p>When upgrading to ShrinkWrap Descriptor 2, expect all package names and fluent APIs to have changed. The API still has the same feel, so it shouldn&#8217;t be too hard to make the transition. Here&#8217;s an example of how the new API looks:</p>
+<pre class="prettify"><code class="prettify">Descriptors.create(BeansDescriptor.class)&#x000A;	.createDecorators().clazz(MyDecorator.class.getName()).up()&#x000A;	.createAlternatives().clazz(MyAlternative.class.getName()).up()&#x000A;	.exportAsString()</code></pre>
+<h3>What is Arquillian?</h3>
+<p>Arquillian is a platform that simplifies Java middleware testing. It brings your test to the runtime, freeing you from the concern of managing the runtime from your test. As a result, you can focus on the task at hand, <em>writing your integration test logic</em>.</p>
+<h3>Release details</h3>
+<table class="table table-bordered table-striped">
+  <tbody>
+    <tr>
+      <th>Component</th>
+      <td>
+        <a href="/modules/core-platform/">Arquillian Core</a>
+      </td>
+    </tr>
+    <tr>
+      <th>Version</th>
+      <td>
+        1.0.0.Final
+        <span class="label tag">
+          <a href="https://github.com/arquillian/arquillian-core/commit/624eb04a4e27bca1d80345fdf772adf514794ec3.html">view tag</a>
+        </span>
+      </td>
+    </tr>
+    <tr>
+      <th>Release date</th>
+      <td>2012-04-10</td>
+    </tr>
+    <tr>
+      <th>Released by</th>
+      <td>Aslak Knutsen</td>
+    </tr>
+    <tr>
+      <th>Compiled against</th>
+      <td>
+        <ul class="unstyled">
+          <li>JUnit &#8211; 4.8.1</li>
+          <li>ShrinkWrap Core &#8211; 1.0.0</li>
+          <li>ShrinkWrap Descriptors &#8211; 2.0.0-alpha-2</li>
+          <li>TestNG &#8211; 5.14.6</li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<h3>
+  Release notes and resolved issues
+  <small>0</small>
+</h3>
+<p></p>
+<p>
+  Thanks to the following list of contributors:
+  <a href="https://community.jboss.org/people/aslak">Aslak Knutsen</a>, <a href="https://community.jboss.org/people/tommysdk">Tommy Tynjä</a>
+</p>
+  </div>
+  <div class="footer">
+    <a href="/blog/2012/04/10/arquillian-core-1-0-0-Final/">permalink</a>
+    |
+    <i class="icon-tags"></i>
+    tagged as
+    <a class="tag" href="/blog/tags/release/">release</a> <a class="tag" href="/blog/tags/platform/">platform</a> <a class="tag" href="/blog/tags/core/">core</a> <a class="tag" href="/blog/tags/jbosscentral/">jbosscentral</a>
+  </div>
+</article>
+<article class="post">
+  <header class="header">
+    <h2 class="title">
+      <a href="/blog/2012/04/05/arquillian-core-1-0-0-CR8/">Arquillian Core 1.0.0.CR8 Released</a>
+    </h2>
+    <div class="byline">
+      <img class="avatar" src="http://gravatar.com/avatar/3f27861ec08730fd02c91fe4129d2668?s=44" />
+      <span class="author">Posted by
+      <a href="https://community.jboss.org/people/aslak">Aslak Knutsen</a></span>
+      <span class="dateinline">on Apr 05, 2012</span>
+      <div class="date"><abbr>Apr</abbr> 05</div>
+    </div>
+  </header>
+  <div class="body">
+    <p>The Arquillian team is proud to announce the <em>1.0.0.CR8</em> release of the <em>Arquillian Core</em> component!</p>
+    
+    <h3>What is Arquillian?</h3>
+    <p>Arquillian is a platform that simplifies Java middleware testing. It brings your test to the runtime, freeing you from the concern of managing the runtime from your test. As a result, you can focus on the task at hand, <em>writing your integration test logic</em>.</p>
+    <h3>Release details</h3>
+    <table class="table table-bordered table-striped">
+      <tbody>
+        <tr>
+          <th>Component</th>
+          <td>
+            <a href="/modules/core-platform/">Arquillian Core</a>
+          </td>
+        </tr>
+        <tr>
+          <th>Version</th>
+          <td>
+            1.0.0.CR8
+            <span class="label tag">
+              <a href="https://github.com/arquillian/arquillian-core/commit/f5521ecf83d775f50d11d9b9ced02b4d69eaec9f.html">view tag</a>
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <th>Release date</th>
+          <td>2012-04-05</td>
+        </tr>
+        <tr>
+          <th>Released by</th>
+          <td>Aslak Knutsen</td>
+        </tr>
+        <tr>
+          <th>Compiled against</th>
+          <td>
+            <ul class="unstyled">
+              <li>JUnit &#8211; 4.8.1</li>
+              <li>ShrinkWrap Core &#8211; 1.0.0-cr-1</li>
+              <li>ShrinkWrap Descriptors &#8211; 1.1.0-beta-1</li>
+              <li>ShrinkWrap Resolvers &#8211; 1.0.0-beta-5</li>
+              <li>TestNG &#8211; 5.14.6</li>
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <h3>
+      Release notes and resolved issues
+      <small>0</small>
+    </h3>
+    <p>Support for Multiple Protocol Contexts within a Deployment</p>
+    <p>
+      Thanks to the following list of contributors:
+      <a href="https://community.jboss.org/people/aslak">Aslak Knutsen</a>, <a href="https://community.jboss.org/people/kpiwko">Karel Piwko</a>, <a href="https://community.jboss.org/people/sewatech">Alexis Hassler</a>
+    </p>
+  </div>
+  <div class="footer">
+    <a href="/blog/2012/04/05/arquillian-core-1-0-0-CR8/">permalink</a>
+    |
+    <i class="icon-tags"></i>
+    tagged as
+    <a class="tag" href="/blog/tags/release/">release</a> <a class="tag" href="/blog/tags/platform/">platform</a> <a class="tag" href="/blog/tags/core/">core</a>
+  </div>
+</article>
+<ul class="pager">
+  <li class="previous">
+    <a href="/blog/page/4/">&laquo; Older</a>
+  </li>
+  <li class="pages">Page 3 of 20</li>
+  <li class="next">
+    <a href="/blog/page/2/">Newer &raquo;</a>
+  </li>
+</ul>
+</div>
+<aside id="sidebar" role="complementary">
+  <div class="subscribe">
+    <h2 class="icon news">
+      <a href="/blog/atom.xml">Subscribe to the Arquillian Blog</a>
+    </h2>
+    <p><em>Get the latest information on features, releases and events.</em></p>
+  </div>
+  <nav class="latest">
+    <h2>Latest Posts</h2>
+    <ul>
+      <li>
+        <div class="title">
+          <a href="/blog/2012/06/27/arquillian-extension-drone-1-1-0-CR1/">Arquillian Drone Extension 1.1.0.CR1 Released</a>
+        </div>
+        <div class="meta">
+          Jun 27, 2012
+        </div>
+      </li>
+      <li>
+        <div class="title">
+          <a href="/blog/2012/06/05/arquillian-extension-byteman-1-0-0-Alpha2/">Arquillian Extension Byteman 1.0.0.Alpha2 Released</a>
+        </div>
+        <div class="meta">
+          Jun 05, 2012
+        </div>
+      </li>
+      <li>
+        <div class="title">
+          <a href="/blog/2012/06/01/arquillian-core-1-0-1-Final/">Arquillian Core 1.0.1.Final Released</a>
+        </div>
+        <div class="meta">
+          Jun 01, 2012
+        </div>
+      </li>
+      <li>
+        <div class="title">
+          <a href="/blog/2012/05/27/arquillian-extension-warp-1-0-0-Alpha1/">Arquillian Warp Extension 1.0.0.Alpha1 Released</a>
+        </div>
+        <div class="meta">
+          May 27, 2012
+        </div>
+      </li>
+      <li>
+        <div class="title">
+          <a href="/blog/2012/05/22/arquillian-extension-spring-1-0-0-Alpha1/">Arquillian Spring Framework Extension 1.0.0.Alpha1 Released</a>
+        </div>
+        <div class="meta">
+          May 22, 2012
+        </div>
+      </li>
+    </ul>
+  </nav>
+  <nav class="tags">
+    <h2>Tags</h2>
+    <div class="tag-cloud">
+      <span class="tag tag-1">
+        <a href="/blog/tags/2010/">2010</a>
+      </span>
+      <span class="tag tag-1">
+        <a href="/blog/tags/2011/">2011</a>
+      </span>
+      <span class="tag tag-1">
+        <a href="/blog/tags/2012/">2012</a>
+      </span>
+      <span class="tag tag-1">
+        <a href="/blog/tags/ajocado/">ajocado</a>
+      </span>
+      <span class="tag tag-0">
+        <a href="/blog/tags/android/">android</a>
+      </span>
+      <span class="tag tag-1">
+        <a href="/blog/tags/announcement/">announcement</a>
+      </span>
+      <span class="tag tag-0">
+        <a href="/blog/tags/as7/">as7</a>
+      </span>
+      <span class="tag tag-1">
+        <a href="/blog/tags/awards/">awards</a>
+      </span>
+      <span class="tag tag-0">
+        <a href="/blog/tags/best-practice/">best-practice</a>
+      </span>
+      <span class="tag tag-1">
+        <a href="/blog/tags/byteman/">byteman</a>
+      </span>
+      <span class="tag tag-0">
+        <a href="/blog/tags/cdi/">cdi</a>
+      </span>
+      <span class="tag tag-0">
+        <a href="/blog/tags/community/">community</a>
+      </span>
+      <span class="tag tag-3">
+        <a href="/blog/tags/container-adapter/">container-adapter</a>
+      </span>
+      <span class="tag tag-1">
+        <a href="/blog/tags/contributors/">contributors</a>
+      </span>
+      <span class="tag tag-1">
+        <a href="/blog/tags/core/">core</a>
+      </span>
+      <span class="tag tag-0">
+        <a href="/blog/tags/dependencies/">dependencies</a>
+      </span>
+      <span class="tag tag-0">
+        <a href="/blog/tags/docs/">docs</a>
+      </span>
+      <span class="tag tag-1">
+        <a href="/blog/tags/drone/">drone</a>
+      </span>
+      <span class="tag tag-1">
+        <a href="/blog/tags/event/">event</a>
+      </span>
+      <span class="tag tag-1">
+        <a href="/blog/tags/examples/">examples</a>
+      </span>
+      <span class="tag tag-3">
+        <a href="/blog/tags/extension/">extension</a>
+      </span>
+      <span class="tag tag-0">
+        <a href="/blog/tags/forge/">forge</a>
+      </span>
+      <span class="tag tag-1">
+        <a href="/blog/tags/glassfish/">glassfish</a>
+      </span>
+      <span class="tag tag-1">
+        <a href="/blog/tags/graphene/">graphene</a>
+      </span>
+      <span class="tag tag-1">
+        <a href="/blog/tags/gsoc/">gsoc</a>
+      </span>
+      <span class="tag tag-0">
+        <a href="/blog/tags/guides/">guides</a>
+      </span>
+      <span class="tag tag-0">
+        <a href="/blog/tags/hackfest/">hackfest</a>
+      </span>
+      <span class="tag tag-1">
+        <a href="/blog/tags/jacoco/">jacoco</a>
+      </span>
+      <span class="tag tag-0">
+        <a href="/blog/tags/javaone/">javaone</a>
+      </span>
+      <span class="tag tag-0">
+        <a href="/blog/tags/jboss/">jboss</a>
+      </span>
+      <span class="tag tag-1">
+        <a href="/blog/tags/jbossas/">jbossas</a>
+      </span>
+      <span class="tag tag-1">
+        <a href="/blog/tags/jbosscentral/">jbosscentral</a>
+      </span>
+      <span class="tag tag-0">
+        <a href="/blog/tags/jbossworld/">jbossworld</a>
+      </span>
+      <span class="tag tag-1">
+        <a href="/blog/tags/jetty/">jetty</a>
+      </span>
+      <span class="tag tag-0">
+        <a href="/blog/tags/jpa/">jpa</a>
+      </span>
+      <span class="tag tag-0">
+        <a href="/blog/tags/judcon/">judcon</a>
+      </span>
+      <span class="tag tag-1">
+        <a href="/blog/tags/maven/">maven</a>
+      </span>
+      <span class="tag tag-0">
+        <a href="/blog/tags/migration/">migration</a>
+      </span>
+      <span class="tag tag-1">
+        <a href="/blog/tags/mission/">mission</a>
+      </span>
+      <span class="tag tag-2">
+        <a href="/blog/tags/nonrelease/">nonrelease</a>
+      </span>
+      <span class="tag tag-0">
+        <a href="/blog/tags/openejb/">openejb</a>
+      </span>
+      <span class="tag tag-1">
+        <a href="/blog/tags/openshift/">openshift</a>
+      </span>
+      <span class="tag tag-1">
+        <a href="/blog/tags/openwebbeans/">openwebbeans</a>
+      </span>
+      <span class="tag tag-1">
+        <a href="/blog/tags/osgi/">osgi</a>
+      </span>
+      <span class="tag tag-1">
+        <a href="/blog/tags/performance/">performance</a>
+      </span>
+      <span class="tag tag-1">
+        <a href="/blog/tags/persistence/">persistence</a>
+      </span>
+      <span class="tag tag-1">
+        <a href="/blog/tags/photos/">photos</a>
+      </span>
+      <span class="tag tag-1">
+        <a href="/blog/tags/platform/">platform</a>
+      </span>
+      <span class="tag tag-0">
+        <a href="/blog/tags/plugin/">plugin</a>
+      </span>
+      <span class="tag tag-0">
+        <a href="/blog/tags/portal/">portal</a>
+      </span>
+      <span class="tag tag-6">
+        <a href="/blog/tags/release/">release</a>
+      </span>
+      <span class="tag tag-1">
+        <a href="/blog/tags/roadmap/">roadmap</a>
+      </span>
+      <span class="tag tag-1">
+        <a href="/blog/tags/seam2/">seam2</a>
+      </span>
+      <span class="tag tag-0">
+        <a href="/blog/tags/spock/">spock</a>
+      </span>
+      <span class="tag tag-0">
+        <a href="/blog/tags/spring/">spring</a>
+      </span>
+      <span class="tag tag-0">
+        <a href="/blog/tags/stats/">stats</a>
+      </span>
+      <span class="tag tag-0">
+        <a href="/blog/tags/test-runner/">test-runner</a>
+      </span>
+      <span class="tag tag-1">
+        <a href="/blog/tags/testing/">testing</a>
+      </span>
+      <span class="tag tag-0">
+        <a href="/blog/tags/tip/">tip</a>
+      </span>
+      <span class="tag tag-1">
+        <a href="/blog/tags/tomcat/">tomcat</a>
+      </span>
+      <span class="tag tag-1">
+        <a href="/blog/tags/tool-plugin/">tool-plugin</a>
+      </span>
+      <span class="tag tag-0">
+        <a href="/blog/tags/video/">video</a>
+      </span>
+      <span class="tag tag-0">
+        <a href="/blog/tags/warp/">warp</a>
+      </span>
+      <span class="tag tag-0">
+        <a href="/blog/tags/website/">website</a>
+      </span>
+      <span class="tag tag-1">
+        <a href="/blog/tags/weld/">weld</a>
+      </span>
+      <span class="tag tag-1">
+        <a href="/blog/tags/wls/">wls</a>
+      </span>
+      <span class="tag tag-0">
+        <a href="/blog/tags/wrapup/">wrapup</a>
+      </span>
+    </div>
+  </nav>
+</aside>
+  </div>
+</div>
+    <footer>
+      <div class="container">
+        <div class="project">
+          <img src="/images/arquillian_logo_200px.png" />
+          <p class="bottom">
+            &#169;
+            Copyright 2009-2012 Red Hat, Inc.
+            <br />
+            <i class="icon-fire"></i>
+            Mixed with <a href="http://twitter.github.com/bootstrap">Bootstrap</a>. Baked by <a href="http://awestruct.org">Awestruct</a>.
+            <br />
+            <i class="icon-share-alt"></i>
+            Website and docs licensed under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.
+            <br />
+            Code released under <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License, v2.0</a>.
+          </p>
+        </div>
+        <div class="footer-nav">
+          <h4>Learn</h4>
+          <ul>
+            <li>
+              <a href="/invasion">Mission</a>
+            </li>
+            <li>
+              <a href="/features">Features</a>
+            </li>
+            <li>
+              <a href="/guides">Guides</a>
+            </li>
+            <li>
+              <a href="https://docs.jboss.org/author/display/ARQ/Reference+Guide">Manual</a>
+            </li>
+            <li>
+              <a href="http://community.jboss.org/en/arquillian/faq">FAQs</a>
+            </li>
+          </ul>
+        </div>
+        <div class="footer-nav">
+          <h4>Get Involved</h4>
+          <ul>
+            <li>
+              <a href="http://community.jboss.org/en/arquillian?view=discussions">Forums</a>
+            </li>
+            <li>
+              <a href="https://issues.jboss.org/browse/ARQ">Issue Tracker</a>
+            </li>
+            <li>
+              <a href="https://github.com/arquillian">Source Code</a>
+            </li>
+            <li>
+              <a href="/community/contributors">Contributors</a>
+            </li>
+            <li>
+              <a href="https://community.jboss.org/groups/testing">Testing SIG</a>
+            </li>
+          </ul>
+        </div>
+        <div class="sponser">
+          <div class="follow-us">
+            <h4>Stay Informed</h4>
+            <ul>
+              <li>
+                <a href="https://plus.google.com/100660127586085393031"><img alt="Google+" src="/images/social/googleplus-16.png" title="Follow Arquillian on Google+" /></a>
+              </li>
+              <li>
+                <a href="https://twitter.com/#!/search/%23arquillian"><img alt="Twitter" src="/images/social/twitter-16.png" title="Browse the #arquillian hashtag on Twitter" /></a>
+              </li>
+              <li>
+                <a href="http://www.linkedin.com/groups?gid=3120340"><img alt="LinkedIn" src="/images/social/linkedin-16.png" title="Join the Arquillian group on LinkedIn" /></a>
+              </li>
+              <li>
+                <a href="http://vimeo.com/channels/arquillian"><img alt="Vimeo" src="/images/social/vimeo-16.png" title="Follow the Arquillian channel on Vimeo" /></a>
+              </li>
+            </ul>
+          </div>
+          <p>This website is open source! You can also <a href="http://www.seethestats.com/site/arquillian.org">see the stats</a>. If you want to help, <a href="http://github.com/arquillian/arquillian.github.com">fork the project</a> and hack on it.</p>
+          <p class="image"><a href="http://jboss.org"><img src="/images/jboss_redhat_branding.png" class="branding" title="Red Hat, Inc." alt="Red Hat, Inc." /></a></p>
+          <p>Arquillian is a <a href="http://jboss.org">JBoss Community</a> project and development is sponsored by Red Hat, Inc.</p>
+          <p class="bottom"><a href="http://www.redhat.com/legal/legal_statement.html">Terms of Use</a> | <a href="http://www.redhat.com/legal/privacy_statement.html">Privacy Policy</a></p>
+        </div>
+        <a class="visible-desktop" href="#" id="toTop">Top</a>
+      </div>
+    </footer>
+    <script>
+      $(function() {
+        $('html').addClass('ready');
+        prettify();
+        activateFooterGravity();
+        activateTooltips();
+        activateToTopControl();
+      });
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.0.2/bootstrap.min.js"></script>
+    <script src="/javascripts/prettify.js"></script>
+    <script src="/javascripts/site.js"></script>
+  </body>
+</html>
